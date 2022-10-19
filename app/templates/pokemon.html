@@ -15,7 +15,7 @@
     <div class="card mx-auto mb-5 border-dark" style="width: 24rem;">
         <img src={{pokemon["f_shiny"]}} class="card-img-top" alt="pokemon">
         <div class="card-body text-dark bg-light">
-          <h2 class="card-title mb-5">{{pokemon['name'].capitalize()}}</h2>
+          <h2 class="card-title mb-5">{{pokemon['name'].capitalize()}}<span style="float: right;"><a href="https://play.pokemonshowdown.com/audio/cries/{{pokemon['name']}}.mp3" target="_blank"><button type="button" class="btn btn-primary">Hear cry!</button></a></span></h2>
           <h5 class="my-2">Abilities:</h5>
           <ul class="list-group list-group-flush">
             {% for ability in pokemon['abilities'] %}
