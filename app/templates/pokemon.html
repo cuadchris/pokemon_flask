@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container text-center">
+        <h1 class="my-5">See any PoKémon!</h1>
+        <form action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            <p>{{ form.name(class="form-label") }}<br></p>
+            <p>{{ form.submit(class="btn btn-primary") }}</p>
+            <p>{{error}}</p>
+        </form>
+    </div>
+    {% if pokemon %}
+    <div class="card mx-auto mb-5 border-dark" style="width: 24rem;">
+        <img src={{pokemon["f_shiny"]}} class="card-img-top" alt="pokemon">
+        <div class="card-body text-dark bg-light">
+          <h2 class="card-title mb-5">{{pokemon['name'].capitalize()}}</h2>
+          <h5 class="my-2">Abilities:</h5>
+          <ul class="list-group list-group-flush">
+            {% for ability in pokemon['abilities'] %}
+          <li class="list-group-item text-muted">{{ability.capitalize()}}</li>
+            {% endfor %}
+        </ul>
+        <h5 class="my-2">Stats:</h5>
+        <ul class="list-group list-group-flush">
+            {% for stat in pokemon['stats'] %}
+            {% for x,y in stat.items() %}
+          <li class="list-group-item text-muted">{{x.capitalize()}}: {{y}}</li>
+            {% endfor %}
+            {% endfor %}
+        </ul>
+        </div>
+      </div>
+    {% endif %}
+
+{% endblock %}
