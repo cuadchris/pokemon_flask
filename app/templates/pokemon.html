@@ -6,7 +6,7 @@
         <h1 class="my-5">See any PoKémon!</h1>
         <form action="" method="post" novalidate>
             {{ form.hidden_tag() }}
-            <p>{{ form.name(class="form-label") }}<br></p>
+            <p>{{ form.name(class="form-label", placeholder="Catch em' all") }}<br></p>
             <p>{{ form.submit(class="btn btn-primary") }}</p>
             <p>{{error}}</p>
         </form>
