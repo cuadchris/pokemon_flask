@@ -20,4 +20,4 @@ def pokemon():
         if not pokemon:
             error = "Please enter a valid PoKémon."
             redirect(url_for('pokemon'))
-    return render_template('pokemon.html', title = 'Sign in', form = form, pokemon = pokemon, error = error)
+    return render_template('pokemon.html', title = 'Pokémon', form = form, pokemon = pokemon, error = error)
