@@ -3,8 +3,6 @@
 {% block content %}
 
     <div class="container text-center">
-      <a href="{{ url_for('index') }}" style="text-decoration: none;">Home</a><br>
-      <a href="{{ url_for('logout') }}" style="text-decoration: none;">Logout</a>
         <h1 class="my-5">See any PoKémon!</h1>
         <form action="" method="post" novalidate>
             {{ form.hidden_tag() }}
