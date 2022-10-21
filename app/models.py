@@ -32,4 +32,4 @@ class UserPokemon(db.Model):
     caught = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     def __repr__(self):
-        return '<Post {}>'.format(self.user_id)
+        return '<Ownership: {}, {}>'.format(self.user_id, self.pokemon_name)
