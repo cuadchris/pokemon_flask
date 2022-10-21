@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container text-center my-5">
     {% if current_user.is_authenticated %}
-    <h1 class="mt-5">Hello, {{current_user.username.capitalize()}}.</h1>
+    <h1 class="mt-5">Hello, {{current_user.first_name.capitalize()}}.</h1>
     {% endif %}
     <h1 class="my-2">You're at the Home page</h1>
     <p class="mt-3 mb-5"><small class="text-muted">This page is boring. What you want is right below. <br>Or above. Your call.</small></p><br>

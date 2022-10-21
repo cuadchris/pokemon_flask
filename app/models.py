@@ -11,9 +11,10 @@ def load_user(id):
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
+    first_name = db.Column(db.String(64), index=True)
+    last_name = db.Column(db.String(64), index=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
-    pokemon = db.relationship('Pokemon', backref='owner', lazy='dynamic')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -24,21 +25,11 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    # def saveToDB(self):
-    #     with app.app_context():
-    #         db.session.add(self)
-    #         db.session.commit()
-
-class Pokemon(db.Model):
+class UserPokemon(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64))
-    caught = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    pokemon_name = db.Column(db.String(64))
+    caught = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     def __repr__(self):
-        return '<Post {}>'.format(self.body)
-
-    # def saveToDB(self):
-    #     with app.app_context():
-    #         db.session.add(self)
-    #         db.session.commit()
+        return '<Post {}>'.format(self.user_id)
