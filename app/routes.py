@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash, request
+from flask import render_template, redirect, url_for, flash, request, jsonify, make_response
 from app import app, db
 from app.forms import GetPoke, LoginForm, RegistrationForm, AddPoke
 from app.getPokemon import *
@@ -52,6 +52,14 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+# TESTING FOR ADDING FROM BROWSING
+@app.route('/addpokemon', methods = ['POST'])
+def addpokemon():
+    
+    sent_pokemon = request.get_json()
+    res = make_response(jsonify({'pokemon': sent_pokemon['name']}))
+    return redirect(url_for('pokemon'))
+    
 @app.route('/add', methods = ['GET', 'POST'])
 @login_required
 def add():

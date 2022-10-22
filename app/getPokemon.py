@@ -10,7 +10,7 @@ def addPokemon(pokemon):
         pokedict = {
             'name': data['name'],
             'abilities': data['abilities'][0]['ability']['name'],
-            'f_shiny': data['sprites']['front_shiny'],
+            'f_shiny': data['sprites']['other']['official-artwork']['front_default'],
             'stats': [{x['stat']['name']: x['base_stat']} for x in data['stats'][:3]]
         }
         return pokedict
