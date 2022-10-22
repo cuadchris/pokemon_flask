@@ -13,7 +13,7 @@
     </div>
     {% if pokemon %}
     <div class="card mx-auto mb-5 border-dark" style="width: 24rem;">
-        <img src={{pokemon["f_shiny"]}} class="card-img-top" alt="pokemon">
+        <img src={{pokemon["f_shiny"]}} class="card-img-top border border-5" alt="pokemon">
         <div class="card-body text-dark bg-light">
           <h2 class="card-title mb-5"><div id="cmon" style="display: inline-block;">{{pokemon['name'].capitalize()}}</div><span style="float: right;"><button id="playsound" type="button" class="btn btn-primary">Hear cry!</button></span></h2>
           <audio id="sound" src="https://play.pokemonshowdown.com/audio/cries/{{pokemon['name']}}.mp3"></audio>
@@ -65,10 +65,9 @@ async function doRequest() {
     console.error('Error:', error);
   });
 
-  document.location.reload();
-  alert(p_name + " has been added to your collection!");
   // document.location.reload();
-
+  alert(p_name + " has been added to your collection!");
+  document.location.reload();
 };
 </script>
 {% endblock %}

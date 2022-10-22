@@ -57,7 +57,12 @@ def logout():
 def addpokemon():
     
     sent_pokemon = request.get_json()
-    res = make_response(jsonify({'pokemon': sent_pokemon['name']}))
+    mon = UserPokemon()
+    mon.user_id = current_user.id
+    mon.pokemon_name = sent_pokemon['name'].lower()
+    with app.app_context():
+        db.session.add(mon)
+        db.session.commit()
     return redirect(url_for('pokemon'))
     
 @app.route('/add', methods = ['GET', 'POST'])
