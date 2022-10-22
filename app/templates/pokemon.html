@@ -22,11 +22,9 @@
             const correctButton = document.getElementById("playsound");
             correctButton.addEventListener("click", function(){ mySound.play(); });   
           </script> 
-          <h5 class="my-2">Abilities:</h5>
+          <h5 class="my-2">Main Ability:</h5>
           <ul class="list-group list-group-flush">
-            {% for ability in pokemon['abilities'] %}
-          <li class="list-group-item text-muted">{{ability.capitalize()}}</li>
-            {% endfor %}
+          <li class="list-group-item text-muted">{{pokemon['abilities'].capitalize()}}</li>
         </ul>
         <h5 class="my-2">Stats:</h5>
         <ul class="list-group list-group-flush">

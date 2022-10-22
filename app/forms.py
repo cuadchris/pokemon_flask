@@ -1,11 +1,22 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
+from app.getPokemon import addPokemon
 from app.models import User
 
 class GetPoke(FlaskForm):
     name = StringField('Username', validators=[DataRequired()])
     submit = SubmitField('Retrieve PoKémon')
+
+class AddPoke(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    submit = SubmitField('Add')
+
+    # def validate_pokemon(self, name):
+    #     pokemon = addPokemon(name)
+    #     print(pokemon)
+    #     if pokemon['name'] != name:
+    #         raise ValidationError('try again.')
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])

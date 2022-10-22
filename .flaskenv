@@ -1,1 +1,2 @@
 FLASK_APP=flask_pokemon.py
+FLASK_ENV=development

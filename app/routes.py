@@ -1,9 +1,9 @@
 from flask import render_template, redirect, url_for, flash, request
 from app import app, db
-from app.forms import GetPoke, LoginForm, RegistrationForm
+from app.forms import GetPoke, LoginForm, RegistrationForm, AddPoke
 from app.getPokemon import *
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User
+from app.models import User, UserPokemon
 from werkzeug.urls import url_parse
 
 @app.route('/')
@@ -52,9 +52,32 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+@app.route('/add', methods = ['GET', 'POST'])
+@login_required
+def add():
+    owned = [x.pokemon_name for x in UserPokemon.query.filter_by(user_id = current_user.id)]
+    form = AddPoke()
+    if form.validate_on_submit():
+        if not addPokemon(form.name.data):
+            flash('Enter valid pokemon')
+            return redirect(url_for('add'))
+        if form.name.data in owned:
+            flash('You own this pokemon already!')
+            return redirect(url_for('add'))
+        mon = UserPokemon()
+        mon.user_id = current_user.id
+        mon.pokemon_name = form.name.data
+        with app.app_context():
+            db.session.add(mon)
+            db.session.commit()
+        flash(f'{form.name.data.capitalize()} added to your collection!')
+        return redirect(url_for('add'))
+    return render_template('add.html', title="Add Pokemon", form=form)
+
 @app.route('/pokemon', methods = ['GET', 'POST'])
 @login_required
 def pokemon():
+    owned = [x.pokemon_name for x in UserPokemon.query.filter_by(user_id = current_user.id)]
     form = GetPoke()
     pokemon = ""
     error = ""
@@ -65,4 +88,10 @@ def pokemon():
         if not pokemon:
             error = "Please enter a valid PoKémon."
             redirect(url_for('pokemon'))
-    return render_template('pokemon.html', title = 'Pokémon', form = form, pokemon = pokemon, error = error)
+    return render_template('pokemon.html', title='Pokémon', form=form, pokemon=pokemon, error=error, owned=owned)
+
+@app.route('/collection')
+def collection():
+    owned = [x.pokemon_name for x in UserPokemon.query.filter_by(user_id = current_user.id)]
+    owned_objects = [addPokemon(x) for x in owned]
+    return render_template('collection.html', title='Collection', owned=owned_objects)

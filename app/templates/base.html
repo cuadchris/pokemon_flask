@@ -19,9 +19,6 @@
         <ul class="navbar-nav">
           {% if not current_user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="{{url_for('index')}}">Home</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="{{url_for('login')}}">Sign-in</a>
             </li>
             <li class="nav-item">
@@ -29,10 +26,13 @@
             </li>
           {% else %}
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{{url_for('index')}}">Home</a>
+            <a class="nav-link" aria-current="page" href="{{url_for('add')}}">Add PoKémon</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{url_for('pokemon')}}">PoKémon</a>
+            <a class="nav-link" href="{{url_for('pokemon')}}">Browse PoKémon</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('collection')}}">View your PoKémon</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{url_for('logout')}}">Log out</a>
