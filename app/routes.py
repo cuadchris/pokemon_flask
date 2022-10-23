@@ -2,6 +2,7 @@ from flask import render_template, redirect, url_for, flash, request, jsonify, m
 from app import app, db
 from app.forms import GetPoke, LoginForm, RegistrationForm, AddPoke
 from app.getPokemon import *
+from app.colors import *
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, UserPokemon
 from werkzeug.urls import url_parse
@@ -101,7 +102,7 @@ def pokemon():
         if not pokemon:
             error = "Please enter a valid PoKémon."
             redirect(url_for('pokemon'))
-    return render_template('pokemon.html', title='Pokémon', form=form, pokemon=pokemon, error=error, owned=owned)
+    return render_template('pokemon.html', title='Pokémon', form=form, pokemon=pokemon, error=error, owned=owned, colors=colors)
 
 @app.route('/collection')
 def collection():
