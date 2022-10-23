@@ -1,36 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container text-center">
-    <div class="row g-2">
+<div class="container text-center mt-3">
+    <div class="row g-3">
         {% for pokemon in owned %}
-        <div class="col-md-4">
-            <div class="card mx-auto mb-5 border-dark" style="width: 18rem;">
-                <img src={{pokemon["f_shiny"]}} class="card-img-top" alt="pokemon">
-                <div class="card-body text-dark bg-light">
-                  <h2 class="card-title mb-5">{{pokemon['name'].capitalize()}}<span style="float: right;"><button id="{{pokemon['name']}}sound" type="button" class="btn btn-primary">Hear cry!</button></span></h2>
-                  <audio id="sound{{pokemon['name']}}" src="https://play.pokemonshowdown.com/audio/cries/{{pokemon['name']}}.mp3"></audio>
-                  <script>   
-                    // const mySound = document.getElementById("sound{{pokemon['name']}}");   
-                    // const correctButton = document.getElementById("{{pokemon['name']}}sound");
-                    document.getElementById("{{pokemon['name']}}sound").addEventListener("click", function(){ document.getElementById("sound{{pokemon['name']}}").play(); });   
-                  </script> 
-                  <h5 class="my-2">Main Ability:</h5>
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item text-muted">{{pokemon['abilities'].capitalize()}}</li>
-                  </ul>
-                <h5 class="my-2">Stats:</h5>
-                <ul class="list-group list-group-flush">
-                    {% for stat in pokemon['stats'] %}
-                    {% for x,y in stat.items() %}
-                  <li class="list-group-item text-muted">{{x.capitalize()}}: {{y}}</li>
-                    {% endfor %}
-                    {% endfor %}
-                </ul>
-                </div>
+          <div class="col-md-2">
+            <div class="card">
+              <img src="{{pokemon['f_shiny']}}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">{{pokemon['name'].capitalize()}}</h5>
+                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
               </div>
-        </div>
+            </div>
+          </div>
         {% endfor %}
     </div>
   </div>
 {% endblock %}
+
+
+
+
+<!-- <h2 class="card-title mb-5">{{pokemon['name'].capitalize()}}<span style="float: right;"><button id="{{pokemon['name']}}sound" type="button" class="btn btn-primary">Hear cry!</button></span></h2>
+<audio id="sound{{pokemon['name']}}" src="https://play.pokemonshowdown.com/audio/cries/{{pokemon['name']}}.mp3"></audio>
+<script>   
+  document.getElementById("{{pokemon['name']}}sound").addEventListener("click", function(){ document.getElementById("sound{{pokemon['name']}}").play(); });   
+</script> -->

@@ -4,7 +4,7 @@ def getBio(pokemon_id):
     url = f'https://pokeapi.co/api/v2/pokemon-species/{pokemon_id}/'
     response = r.get(url)
     data = response.json()
-    bio = data['flavor_text_entries'][0]['flavor_text']
+    bio = data['flavor_text_entries'][1]['flavor_text']
     return bio
 
 def addPokemon(pokemon):
