@@ -3,7 +3,23 @@
 
 {% block content %}
 
-    <h1>User: {{ user.first_name }}</h1>
+    <table class="mt-3">
+        <tr valign="top">
+            <td><img src="{{ user.avatar(128) }}"></td>
+            <td>
+                <h1>User: {{ user.first_name.capitalize() }}</h1>
+                {% if user.last_seen %}<p>Last seen on: {{ user.last_seen }}</p>{% endif %}
+                {% if user == current_user %}
+                <p><a href="{{ url_for('user.edit_profile') }}" style="text-decoration: none;">Edit your profile</a></p>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
     <hr>
+    <ul>
+        {% for pokemon in owned%}
+            <li>{{pokemon.capitalize()}}</li>
+        {% endfor %}
+    </ul>
 
 {% endblock %}

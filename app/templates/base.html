@@ -35,6 +35,9 @@
             <a class="nav-link" href="{{url_for('collection')}}">View your PoKémon</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="{{url_for('user.showUser', username=current_user.username)}}">Profile</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="{{url_for('logout')}}">Log out</a>
           </li>
           {% endif %}
