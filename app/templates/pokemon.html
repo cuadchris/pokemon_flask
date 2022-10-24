@@ -14,52 +14,9 @@
     {% if pokemon %}
     
     <div class="container">
-      <div class="card shadow-lg p-3 bg-body rounded mb-3 mx-auto my-2" style="max-width: 540px;">
-        <div class="row bg-gradient bg-light border g-0">
-          <div class="col-md-4">
-            <img class="img-thumbnail mt-4 ms-2 border border-dark border-2 rounded-circle" src="{{pokemon['f_shiny']}}" alt="pokemon" style="background-color: white;">
-            <button id="playsound" class="btn btn-primary mt-5 mb-1" style="margin-left: 25%;">Hear cry!</button>
-            <audio id="sound" src="https://play.pokemonshowdown.com/audio/cries/{{pokemon['name']}}.mp3"></audio>
-            <script>   
-                const mySound = document.getElementById("sound");   
-                const correctButton = document.getElementById("playsound");
-                correctButton.addEventListener("click", function(){ mySound.play(); });   
-              </script> 
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h2 id="cmon" class="card-title">{{pokemon['name'].capitalize()}}</h2>
-              <p class="card-text">{{pokemon['bio']}}</p>
-              <p class="card-text"><small>Main ability: <strong>{{pokemon['abilities'].capitalize()}}</strong></small></p>
-              <ol class="list-group">
-                {% for stat in pokemon['stats'] %}
-                {% for x,y in stat.items() %}
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                  <div class="ms-2 me-auto">
-                    <div class="fw-bold">{{x.capitalize()}}</div>
-                  </div>
-                  <span class="badge rounded-pill" style="background-color: #{{colors[pokemon['type']]}};">{{y}}</span>
-                </li>
-                {% endfor %}
-                {% endfor %}
-                <!-- <li class="list-group-item d-flex justify-content-between align-items-start">
-                  <div class="ms-2 me-auto">
-                    <div class="fw-bold">Attack</div>
-                  </div>
-                  <span class="badge bg-primary rounded-pill">35</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                  <div class="ms-2 me-auto">
-                    <div class="fw-bold">Defense</div>
-                  </div>
-                  <span class="badge bg-primary rounded-pill">25</span>
-                </li> -->
-              </ol>
-              
-            </div>
-          </div>
-        </div>
-      </div>
+
+      {% include "pokemoncard.html" %}
+      
       {% if pokemon['name'] not in owned %}
       <div class="container text-center">
         <button class="btn btn-success mt-2" onclick="doRequest()">Add {{pokemon['name'].capitalize()}} to your collection!</button>

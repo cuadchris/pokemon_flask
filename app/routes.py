@@ -116,3 +116,8 @@ def collection():
     owned = [x.pokemon_name for x in UserPokemon.query.filter_by(user_id = current_user.id)]
     owned_objects = [addPokemon(x) for x in owned]
     return render_template('collection.html', title='Collection', owned=owned_objects)
+
+@app.route('/<pokemon>')
+def showStats(pokemon):
+    pokemon = addPokemon(pokemon)
+    return render_template('stats.html', pokemon=pokemon, colors=colors)

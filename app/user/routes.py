@@ -19,7 +19,7 @@ def before_request():
 @login_required
 def showUser(username):
     user = User.query.filter_by(username=username).first_or_404()
-    owned = [x.pokemon_name for x in UserPokemon.query.filter_by(user_id = user.id)]
+    owned = [x.pokemon_name for x in UserPokemon.query.filter_by(user_id = user.id).order_by(UserPokemon.pokemon_name)]
     owned_objects = [addPokemon(x) for x in owned]
     return render_template('user.html', user=user, owned=owned_objects, colors=colors)
 
