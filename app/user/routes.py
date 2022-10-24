@@ -4,6 +4,8 @@ from flask_login import current_user, login_required
 from app.user.forms import EditProfileForm
 from app.models import db
 from datetime import datetime
+from app.getPokemon import *
+from app.colors import colors
 
 user = Blueprint('user', __name__, template_folder='user_templates', url_prefix = "/user")
 
@@ -18,7 +20,8 @@ def before_request():
 def showUser(username):
     user = User.query.filter_by(username=username).first_or_404()
     owned = [x.pokemon_name for x in UserPokemon.query.filter_by(user_id = user.id)]
-    return render_template('user.html', user=user, owned=owned)
+    owned_objects = [addPokemon(x) for x in owned]
+    return render_template('user.html', user=user, owned=owned_objects, colors=colors)
 
 @user.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
@@ -28,7 +31,7 @@ def edit_profile():
         current_user.username = form.username.data
         db.session.commit()
         flash('Your changes have been saved.')
-        return redirect(url_for('user.edit_profile'))
+        return redirect(url_for('user.showUser', username=current_user.username))
     elif request.method == 'GET':
         form.username.data = current_user.username
     return render_template('edit_profile.html', title='Edit Profile',

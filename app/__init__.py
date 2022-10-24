@@ -3,6 +3,7 @@ from config import Config
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from .models import db, User
+from flask_moment import Moment
 
 from .user.routes import user
 
@@ -23,5 +24,7 @@ app.register_blueprint(user)
 
 db.init_app(app)
 migrate = Migrate(app, db)
+
+moment = Moment(app)
 
 from app import routes, models
