@@ -4,6 +4,9 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from .models import db, User
 
+from .user.routes import user
+
+
 app = Flask(__name__)
 
 login = LoginManager(app)
@@ -15,6 +18,8 @@ def load_user(id):
 login.login_view = 'login'
 
 app.config.from_object(Config)
+
+app.register_blueprint(user)
 
 db.init_app(app)
 migrate = Migrate(app, db)
