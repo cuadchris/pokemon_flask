@@ -18,6 +18,10 @@
         justify-content: center;
         align-items: center;
     }
+
+    img {
+        transition-duration: .5s;
+    }
 </style>
 <body>
     <div class="container text-center">
@@ -27,7 +31,7 @@
     <div class="container">
         <div class="container text-end my-5">
             <div class="row g-3">
-                <h1 style="color: white;">Enemy Team</h1>
+                <h1 style="color: white;">{{enemy}}'s Team</h1>
 
                 {% for pokemon in enemy_pokemon %}
                   <div class="col-md-2">
@@ -40,7 +44,7 @@
         </div>
         <div class="container text-end my-5">
             <div class="row g-3">
-                <h1 style="color: white;">User Team</h1>
+                <h1 style="color: white;"> Team</h1>
                 {% for pokemon in owned %}
                   <div class="col-md-2">
                         <img src="{{pokemon['f_shiny']}}" class="team-1 active img-thumbnail rounded-circle border border-4" alt="pokemon" style="background-color: #{{colors[pokemon['type']]}};">
@@ -90,7 +94,7 @@ async function test () {
 
   while (team1.length > 0 && team2.length > 0) {
 
-    await delay(200);
+    await delay(750);
     team = getRandomTeam(teams);
     let num = getRandomInt(team.length);
     team[num].classList.add("opacity-25");
