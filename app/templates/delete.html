@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container my-5">
+            {% for pokemon in owned %}
+            <h4>
+                <label class="form-check-label" for="{{pokemon}}">{{pokemon.capitalize()}}</label>
+                <input class="form-check-input" type="checkbox" id="{{pokemon}}">
+            </h4>
+            {% endfor %}
+        <button class="my-5 btn btn-warning" onclick="hi()">Release</button>
+    </div>
+    
+
+{% endblock %}
+
+{% block script %}
+<script>
+
+async function hi(){
+
+    let list = []
+    let ele = document.querySelectorAll('input[type="checkbox"]');
+    for(i = 0; i < ele.length; i++) {
+                if(ele[i].checked)
+                list.push(ele[i].id)
+            }
+
+    // const data = {name: "hello"};
+    fetch('http://127.0.0.1:5000/delete', {
+    method: 'POST', // or 'PUT'
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(list),
+})
+
+    // const spantag = document.getElementsByTagName('span');
+    
+    // window.location = "http://127.0.0.1:5000/user/" + spantag[1].id;
+    alert('Release successful')
+
+    document.location.reload();
+
+};
+    </script>
+{% endblock %}

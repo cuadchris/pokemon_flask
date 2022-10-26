@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, flash, request, jsonify, make_response
 from app import app, db
-from app.forms import GetPoke, LoginForm, RegistrationForm, AddPoke
+from app.forms import GetPoke, LoginForm, RegistrationForm, AddPoke, DeletePokemonForm
 from app.getPokemon import *
 from app.colors import *
 from flask_login import current_user, login_user, logout_user, login_required
@@ -93,3 +93,19 @@ def pokemon():
 def showStats(pokemon):
     pokemon = addPokemon(pokemon)
     return render_template('stats.html', pokemon=pokemon, colors=colors)
+
+@app.route('/delete', methods = ['GET', 'POST'])
+def delete():
+    owned = [x.pokemon_name for x in UserPokemon.query.filter_by(user_id = current_user.id)]
+    if len(owned) == 0:
+        flash("You have no PoKémon")
+        return redirect(url_for('user.showUser', username=current_user.username))
+    if request.method == 'POST':
+        info = request.get_json()
+        for pokemon in info:
+            mon = UserPokemon.query.filter_by(pokemon_name=pokemon).first()
+            db.session.delete(mon)
+            db.session.commit()
+        return redirect(url_for('user.showUser', username=current_user.username))
+
+    return render_template('delete.html', owned=owned)

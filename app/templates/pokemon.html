@@ -17,9 +17,13 @@
 
       {% include "pokemoncard.html" %}
       
-      {% if pokemon['name'] not in owned %}
+      {% if pokemon['name'] not in owned and owned|length < 5 %}
       <div class="container text-center">
         <button class="btn btn-success mt-2" onclick="doRequest()">Catch {{pokemon['name'].capitalize()}}!</button>
+      </div>
+      {% elif owned|length >=5  %}
+      <div class="container text-center">
+        <button class="btn btn-danger mt-2 disabled">Collection full.</button>
       </div>
       {% endif %}
     </div>

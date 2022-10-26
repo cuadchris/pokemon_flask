@@ -24,6 +24,10 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
+class DeletePokemonForm(FlaskForm):
+    checker = BooleanField("please")
+    submit = SubmitField('Delete')
+
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     first_name = StringField('First name', validators=[DataRequired()])
