@@ -1,3 +1,4 @@
+from errno import ENOTEMPTY
 from flask import render_template, redirect, url_for, flash, request, jsonify, make_response
 from app import app, db
 from app.forms import GetPoke, LoginForm, RegistrationForm, AddPoke, DeletePokemonForm
@@ -109,3 +110,17 @@ def delete():
         return redirect(url_for('user.showUser', username=current_user.username))
 
     return render_template('delete.html', owned=owned)
+
+@app.route('/battle')
+def battle():
+    enemy = 'Steve'
+    enemy_pokemon = []
+    for i in range(1, 6):
+        enemy_pokemon.append(addPokemon(str(i)))
+    owned = [x.pokemon_name for x in UserPokemon.query.filter_by(user_id = current_user.id)]
+    owned_objects = [addPokemon(x) for x in owned]
+    if len(owned) < 5:
+        flash(f"You need to catch {5-len(owned)} more PoKémon before you can battle!")
+        return redirect(url_for('user.showUser', username=current_user.username))
+    # pokemon = [addPokemon(x) for x in owned]
+    return render_template('battle.html', enemy=enemy, owned=owned_objects, enemy_pokemon=enemy_pokemon, colors=colors)
