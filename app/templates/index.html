@@ -1,16 +1,48 @@
 {% extends "base.html" %}
 
 {% block content %}
+<style>
+    img {
+        animation: wiggle 2s linear infinite;
+    }
+
+    img:hover {
+        cursor: pointer;
+    }
+
+    @keyframes wiggle {
+  0%, 7% {
+    transform: rotateZ(0);
+  }
+  15% {
+    transform: rotateZ(-15deg);
+  }
+  20% {
+    transform: rotateZ(10deg);
+  }
+  25% {
+    transform: rotateZ(-10deg);
+  }
+  30% {
+    transform: rotateZ(6deg);
+  }
+  35% {
+    transform: rotateZ(-4deg);
+  }
+  40%, 100% {
+    transform: rotateZ(0);
+  }
+}
+</style>
 <div class="container text-center my-5">
     {% if current_user.is_authenticated %}
     <h1 class="mt-5">Hello, {{current_user.first_name.capitalize()}}.</h1>
-    {% endif %}
-    <h1 class="my-2">You're at the Home page</h1>
-    <p class="mt-3 mb-5"><small class="text-muted">This page is boring. What you want is right below. <br>Or above. Your call.</small></p><br>
-    {% if current_user.is_authenticated %}
-    <a href="{{ url_for('pokemon') }}" style="text-decoration: none;">View Pokémon</a><br>
+    <a href="{{url_for('pokemon')}}"><img class="zoom-box" height="15%" width="15%" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/770px-Pok%C3%A9_Ball_icon.svg.png" alt=""></a>
+    <p class="mt-3 mb-5"><small class="text-muted">Click PoKéball to begin catching!</small></p><br>
     {% else %}
-    <a href="{{ url_for('login') }}" style="text-decoration: none;">Sign in to view Pokémon</a><br>
+    <h1>Welcome to PoKéFlask!</h1>
+    <a href="{{url_for('login')}}"><img class="zoom-box" height="15%" width="15%" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/770px-Pok%C3%A9_Ball_icon.svg.png" alt=""></a>
+    <p class="mt-3 mb-5"><small class="text-muted">Click PoKéball to sign in!</small></p><br>
     <p class="my-5"><small class="text-muted">New here? <a href="{{url_for('signup')}}" style="text-decoration: none;">Sign up</a></small></p>
     {% endif %}
 </div>

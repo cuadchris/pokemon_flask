@@ -20,7 +20,7 @@
     }
 
     img {
-        transition-duration: 1.5s;
+        transition-duration: 2s;
     }
 </style>
 <body>
@@ -137,7 +137,7 @@ async function test () {
 
   while (team1.length > 0 && team2.length > 0) {
 
-    await delay(900);
+    await delay(1000);
     team = getRandomTeam(teams);
     let num = getRandomInt(team.length);
     team[num].classList.add("opacity-25");
