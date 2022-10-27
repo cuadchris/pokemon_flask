@@ -116,7 +116,7 @@ def delete():
             db.session.commit()
         return redirect(url_for('user.showUser', username=current_user.username))
 
-    return render_template('delete.html', owned=owned)
+    return render_template('delete.html', title = 'Release', owned=owned)
 
 @app.route('/battle')
 @login_required

@@ -24,7 +24,7 @@ def showUser(username):
     wins = user.wins
     losses = user.losses
     ratio = int((wins/(wins + losses)) * 100)
-    return render_template('user.html', user=user, owned=owned_objects, colors=colors, wins=wins, losses=losses, ratio=ratio)
+    return render_template('user.html', title = 'Profile', user=user, owned=owned_objects, colors=colors, wins=wins, losses=losses, ratio=ratio)
 
 @user.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
@@ -37,7 +37,7 @@ def edit_profile():
         return redirect(url_for('user.showUser', username=current_user.username))
     elif request.method == 'GET':
         form.username.data = current_user.username
-    return render_template('edit_profile.html', title='Edit Profile',form=form)
+    return render_template('edit_profile.html', title='Edit Profile', form=form)
 
 @user.route('/updatewins')
 @login_required
