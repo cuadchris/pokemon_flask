@@ -19,23 +19,23 @@
         align-items: center;
     }
 
-    img {
+    /* img {
         transition-duration: .5s;
-    }
+    } */
 </style>
 <body>
     <div class="container text-center">
-        <button onclick="test()" type="button" class="btn btn-danger btn-lg">Begin Battle!</button>
+        <button onclick="test()" type="button" class="btn btn-danger btn-lg my-2">Begin Battle!</button>
     </div>
     {% block content %}
     <div class="container">
         <div class="container text-end my-5">
             <div class="row g-3">
-                <h1 style="color: white;">{{enemy}}'s Team</h1>
+                <h1 id="enemy_name" style="color: white;">{{enemy}}'s team</h1>
 
                 {% for pokemon in enemy_pokemon %}
                   <div class="col-md-2">
-                        <img src="{{pokemon['f_shiny']}}" class="team-2 active img-thumbnail rounded-circle border border-4" alt="pokemon" style="background-color: #{{colors[pokemon['type']]}};">
+                        <img id="{{pokemon['name']}}" src="{{pokemon['f_shiny']}}" class="team-2 active img-thumbnail rounded-circle border border-4" alt="pokemon" style="background-color: #{{colors[pokemon['type']]}};">
                         <div class="card-body">
                         </div>
                   </div>
@@ -44,10 +44,10 @@
         </div>
         <div class="container text-end my-5">
             <div class="row g-3">
-                <h1 style="color: white;"> Team</h1>
+                <h1 id="your_name" style="color: white;">{{current_user.first_name.capitalize()}}'s team</h1>
                 {% for pokemon in owned %}
                   <div class="col-md-2">
-                        <img src="{{pokemon['f_shiny']}}" class="team-1 active img-thumbnail rounded-circle border border-4" alt="pokemon" style="background-color: #{{colors[pokemon['type']]}};">
+                        <img id="{{pokemon['name']}}" src="{{pokemon['f_shiny']}}" class="team-1 active img-thumbnail rounded-circle border border-4" alt="pokemon" style="background-color: #{{colors[pokemon['type']]}};">
                         <div class="card-body">
                         </div>
                   </div>
@@ -63,11 +63,31 @@ let team1 = document.getElementsByClassName("team-1");
 let team2 = document.getElementsByClassName("team-2");
 let teams = [team1, team2]
 
+function gameOver(){
+    if (team1.length ==0 || team2.length == 0) {
+        return true;
+    }
+}
+
 function checkWinner (team1, team2){
   if (team1.length == 0) {
-    console.log("Enemy won!")
+    name = document.getElementById("enemy_name").innerText
+    const left_alive = document.getElementsByClassName("active");
+    alive = []
+    for (let i = 0; i < left_alive.length; i++) {
+        alive.push(left_alive[i].id.charAt(0).toUpperCase()
+  + left_alive[i].id.slice(1))
+    }
+    return name + " won!\n Last PoKémon standing:\n\n" + alive.join("\n");
   } else if (team2.length == 0) {
-    console.log("User won!")
+    name = document.getElementById("your_name").innerText
+    const left_alive = document.getElementsByClassName("active");
+    alive = []
+    for (let i = 0; i < left_alive.length; i++) {
+        alive.push(left_alive[i].id.charAt(0).toUpperCase()
+  + left_alive[i].id.slice(1))
+    }
+    return name + " won!\n Last PoKémon standing:\n\n" + alive.join("\n");
   }
 };
 
@@ -94,19 +114,47 @@ async function test () {
 
   while (team1.length > 0 && team2.length > 0) {
 
-    await delay(750);
+    await delay(200);
     team = getRandomTeam(teams);
     let num = getRandomInt(team.length);
     team[num].classList.add("opacity-25");
     team[num].classList.remove("active");
     team1 = document.getElementsByClassName("team-1 active");
     team2 = document.getElementsByClassName("team-2 active");
-    checkWinner(team1, team2)
+    if (gameOver()) {
+        setTimeout(myFunction(), 5000)
+    }
 
   };
 
 
 };
+
+function myFunction() {
+    document.getElementById("battle_info").innerText = checkWinner(team1, team2);
+    document.getElementById("active").click();
+}
+
 </script>
+<!-- Button trigger modal -->
+<button hidden id="active" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Battle Summary:</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="battle_info">
+          
+        </div>
+        <div class="modal-footer">
+            <button onclick = "{window.location = 'http://127.0.0.1:5000/index'}" type="button" class="btn btn-primary">Go Home</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
