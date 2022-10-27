@@ -67,6 +67,7 @@ def logout():
 
 # TESTING FOR ADDING FROM BROWSING
 @app.route('/addpokemon', methods = ['POST'])
+@login_required
 def addpokemon():
     
     sent_pokemon = request.get_json()
@@ -95,11 +96,13 @@ def pokemon():
     return render_template('pokemon.html', title='Pokémon', form=form, pokemon=pokemon, error=error, owned=owned, colors=colors)
 
 @app.route('/<pokemon>')
+@login_required
 def showStats(pokemon):
     pokemon = addPokemon(pokemon)
     return render_template('stats.html', pokemon=pokemon, colors=colors)
 
 @app.route('/delete', methods = ['GET', 'POST'])
+@login_required
 def delete():
     owned = [x.pokemon_name for x in UserPokemon.query.filter_by(user_id = current_user.id)]
     if len(owned) == 0:
@@ -116,6 +119,7 @@ def delete():
     return render_template('delete.html', owned=owned)
 
 @app.route('/battle')
+@login_required
 def battle():
     enemies = ['Shoha', 'Brandt', 'Blair', 'Marlene']
     enemy = random.choice(enemies)
