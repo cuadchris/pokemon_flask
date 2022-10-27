@@ -19,9 +19,9 @@
         align-items: center;
     }
 
-    /* img {
-        transition-duration: .5s;
-    } */
+    img {
+        transition-duration: 1.5s;
+    }
 </style>
 <body>
     <div class="container text-center">
@@ -69,7 +69,14 @@ function gameOver(){
     }
 }
 
+async function updateRecord(url) {
+    let response = await fetch(url);
+    let data = await response.json()
+    return data;
+}
+
 function checkWinner (team1, team2){
+
   if (team1.length == 0) {
     name = document.getElementById("enemy_name").innerText
     const left_alive = document.getElementsByClassName("active");
@@ -78,7 +85,10 @@ function checkWinner (team1, team2){
         alive.push(left_alive[i].id.charAt(0).toUpperCase()
   + left_alive[i].id.slice(1))
     }
-    return name + " won!\n Last PoKémon standing:\n\n" + alive.join("\n");
+    updateRecord("http://127.0.0.1:5000/user/updatelosses")
+    return name + " won!\n\n Last PoKémon standing:\n" + alive.join("\n");
+
+
   } else if (team2.length == 0) {
     name = document.getElementById("your_name").innerText
     const left_alive = document.getElementsByClassName("active");
@@ -87,7 +97,9 @@ function checkWinner (team1, team2){
         alive.push(left_alive[i].id.charAt(0).toUpperCase()
   + left_alive[i].id.slice(1))
     }
+    updateRecord("http://127.0.0.1:5000/user/updatewins")
     return name + " won!\n Last PoKémon standing:\n\n" + alive.join("\n");
+
   }
 };
 
@@ -114,7 +126,7 @@ async function test () {
 
   while (team1.length > 0 && team2.length > 0) {
 
-    await delay(200);
+    await delay(600);
     team = getRandomTeam(teams);
     let num = getRandomInt(team.length);
     team[num].classList.add("opacity-25");
@@ -151,7 +163,7 @@ function myFunction() {
           
         </div>
         <div class="modal-footer">
-            <button onclick = "{window.location = 'http://127.0.0.1:5000/index'}" type="button" class="btn btn-primary">Go Home</button>
+            <button onclick = "{window.location = 'http://127.0.0.1:5000/user/{{current_user.username}}'}" type="button" class="btn btn-primary">Go back to profile</button>
         </div>
       </div>
     </div>

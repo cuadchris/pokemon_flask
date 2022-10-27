@@ -49,6 +49,9 @@ def signup():
         user.last_name = form.last_name.data.lower()
         user.email = form.email.data
         user.set_password(form.password.data)
+        user.wins = 0
+        user.losses = 0
+        user
         with app.app_context():
             db.session.add(user)
             db.session.commit()
