@@ -8,6 +8,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, UserPokemon
 from werkzeug.urls import url_parse
 from datetime import datetime
+import random
 
 @app.before_request
 def before_request():
@@ -116,10 +117,11 @@ def delete():
 
 @app.route('/battle')
 def battle():
-    enemy = 'Steve'
+    enemies = ['Shoha', 'Brandt', 'Blair', 'Marlene']
+    enemy = random.choice(enemies)
     enemy_pokemon = []
     for i in range(1, 6):
-        enemy_pokemon.append(addPokemon(str(i)))
+        enemy_pokemon.append(addPokemon(str(random.randrange(1, 200))))
     owned = [x.pokemon_name for x in UserPokemon.query.filter_by(user_id = current_user.id)]
     owned_objects = [addPokemon(x) for x in owned]
     if len(owned) < 5:
