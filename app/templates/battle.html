@@ -24,6 +24,9 @@
     }
 </style>
 <body>
+    <audio autoplay id="battle" preload="auto" src="https://vgmsite.com/soundtracks/pokemon-game-boy-pok-mon-sound-complete-set-play-cd/glldvgodzn/1-28.%20Battle%20%28Vs.%20Gym%20Leader%29.mp3"></audio>
+    <audio id="victory" preload="auto" src="https://vgmsite.com/soundtracks/pokemon-game-boy-pok-mon-sound-complete-set-play-cd/vqnnuvhutx/1-29.%20Victory%20%28Vs.%20Gym%20Leader%29.mp3"></audio>
+    <audio id="lost" preload="auto" src="https://vgmsite.com/soundtracks/pokemon-game-boy-pok-mon-sound-complete-set-play-cd/wgdrkxrbpi/1-05.%20Your%20Rival%20Appears.mp3"></audio>
     <div class="container text-center">
         <button onclick="test()" type="button" class="btn btn-danger btn-lg my-2">Begin Battle!</button>
     </div>
@@ -58,6 +61,10 @@
     {% endblock %}
 <script>
 
+victory = document.getElementById("victory")
+battle = document.getElementById("battle")
+lost = document.getElementById("lost")
+
 let divs = document.getElementsByClassName("img-thumbnail");
 let team1 = document.getElementsByClassName("team-1");
 let team2 = document.getElementsByClassName("team-2");
@@ -78,6 +85,8 @@ async function updateRecord(url) {
 function checkWinner (team1, team2){
 
   if (team1.length == 0) {
+    battle.pause()
+    lost.play()
     name = document.getElementById("enemy_name").innerText
     const left_alive = document.getElementsByClassName("active");
     alive = []
@@ -90,6 +99,8 @@ function checkWinner (team1, team2){
 
 
   } else if (team2.length == 0) {
+    battle.pause()
+    victory.play()
     name = document.getElementById("your_name").innerText
     const left_alive = document.getElementsByClassName("active");
     alive = []
@@ -126,7 +137,7 @@ async function test () {
 
   while (team1.length > 0 && team2.length > 0) {
 
-    await delay(600);
+    await delay(900);
     team = getRandomTeam(teams);
     let num = getRandomInt(team.length);
     team[num].classList.add("opacity-25");
