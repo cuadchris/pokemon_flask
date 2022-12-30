@@ -23,7 +23,10 @@ def showUser(username):
     owned_objects = [addPokemon(x) for x in owned]
     wins = user.wins
     losses = user.losses
-    ratio = int((wins/(wins + losses)) * 100)
+    if wins == 0 and losses == 0:
+        ratio = 0
+    else:
+        ratio = int((wins/(wins + losses)) * 100)
     return render_template('user.html', title = 'Profile', user=user, owned=owned_objects, colors=colors, wins=wins, losses=losses, ratio=ratio)
 
 @user.route('/edit_profile', methods=['GET', 'POST'])
