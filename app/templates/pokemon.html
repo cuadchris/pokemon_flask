@@ -39,7 +39,7 @@ async function doRequest() {
   const p_name = elem.innerText
   const data = {name: p_name};
 
-  fetch('http://127.0.0.1:5000/addpokemon', {
+  fetch('https://pokeflask.onrender.com/addpokemon', {
     method: 'POST', // or 'PUT'
     headers: {
       'Content-Type': 'application/json',
