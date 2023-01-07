@@ -99,7 +99,7 @@ function checkWinner (team1, team2){
         alive.push(left_alive[i].id.charAt(0).toUpperCase()
   + left_alive[i].id.slice(1))
     }
-    updateRecord("https://pokeflask.onrender.com/user/updatelosses")
+    updateRecord("https://pokeflask-7630.onrender.com/user/updatelosses")
     return name + " won!\n\n Last PoKémon standing:\n" + alive.join("\n");
 
 
@@ -113,7 +113,7 @@ function checkWinner (team1, team2){
         alive.push(left_alive[i].id.charAt(0).toUpperCase()
   + left_alive[i].id.slice(1))
     }
-    updateRecord("https://pokeflask.onrender.com/user/updatewins")
+    updateRecord("https://pokeflask-7630.onrender.com/user/updatewins")
     return name + " won!\n Last PoKémon standing:\n\n" + alive.join("\n");
 
   }
@@ -179,7 +179,7 @@ function myFunction() {
           
         </div>
         <div class="modal-footer">
-            <button onclick = "{window.location = 'https://pokeflask.onrender.com/user/{{current_user.username}}'}" type="button" class="btn btn-primary">Go back to profile</button>
+            <button onclick = "{window.location = 'https://pokeflask-7630.onrender.com/user/{{current_user.username}}'}" type="button" class="btn btn-primary">Go back to profile</button>
         </div>
       </div>
     </div>
